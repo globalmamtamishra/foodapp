@@ -1,0 +1,84 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <link rel="stylesheet" href="comman.css">
+
+    <link rel="stylesheet" href="navbar.css">
+</head>
+<body>
+<div id="navbar"></div>
+<div id="search">
+
+<input type="search"  id="search1" placeholder="search your food">
+</div>
+
+<div id="result"></div>
+    
+</body>
+</html>
+<script type="module">
+    
+
+    import navbar from"./components/navbar.js"
+
+document.getElementById("navbar").innerHTML=navbar()
+
+import { append } from "./script/appendFetch.js"
+let cont=document.getElementById("result")
+
+async function food(){
+   
+
+    try{
+        let bigdata=document.getElementById("search1").value
+
+        let url=`https://www.themealdb.com/api/json/v1/1/search.php?s=${bigdata}`
+
+        let res=await fetch(url)
+
+        let data=await res.json()
+         console.log(data)
+         cont.innerHTML=""
+append(data.meals,cont)
+
+// console.log(data.meals)
+
+    }
+    catch(err){
+       
+        
+    }
+}
+
+
+ //let data= await getData(url)
+
+document.getElementById("search1").oninput=function(){
+
+    food()
+
+}
+
+
+
+
+//append(data,cont)
+
+
+</script>
+
+
+
+
+
+
+
+    
+
+
+
+
